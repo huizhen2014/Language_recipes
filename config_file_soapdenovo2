@@ -1,0 +1,8 @@
+[LIB]
+name=LIBAA
+avg_ins=500
+reverse_seq=0
+asm_flags=3
+rank=1
+q1=/Data_analysis/GC_skew_test/5_L1_R2.fq.gz
+q2=/Data_analysis/GC_skew_test/5_L1_R1.fq.gz

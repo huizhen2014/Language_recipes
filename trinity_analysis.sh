@@ -1,4 +1,5 @@
 ##https://github.com/trinityrnaseq/trinityrnaseq/wiki/Running-Trinity
+##https://github.com/trinityrnaseq/trinityrnaseq/wiki/There-are-too-many-transcripts!-What-do-I-do%3F
 
 ##Trinity对来自Illumina平台的RNA-Seq数据，进行搞笑稳健的转录本de novo组装
 ##Trinity综合了三个独立的软件模型:Inchworm, Chrysalis, Butterfly
@@ -31,3 +32,9 @@
 ##由于一次trinity运行可能涉及到很多很多的reads cluster，每个cluster都分别进行组装，由于'gene'数目在给定处理的read cluster中是唯一的，因此'gene'识别符应该为read cluster加上对应的基因识别符:TRINITY_DN1000_c115_g5，因此，'TRINITY_DN1000_c15_g5'编码isoform'TRINITY_DN1000_c115_g5_i1'
 ##Path information存在header中:'path=[31015:0-148 23018:149-246'，node'31015'对应转录的序列范围0-148;node23018对应转录序列的序列范围149-246
 
+##针对输出过多的转录本,可能源于可变剪切或测序错误引入新的转录本,由于多重比对，可能给定量带来困难
+##筛选同一基因的最长转录本作为unigene
+##get_longest_isoform_seq_per_trinity_gene.pl Trinity.fasta > uniqgene.fasta
+##使用聚类去除冗余
+##cd-hit-est -i Trinity.fasta -o output_cdhitest.fasta -c 0.98 -p 1 -d 0 -b 3 
+##使用>=1 fpkm or tpm 筛选

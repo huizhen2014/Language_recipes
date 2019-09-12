@@ -19,13 +19,13 @@
 ##E值局限性：1. 当目标序列过小是，E值偏大，因无法的到较高S值；2. 在有gap情况下，两序列同源性高，但S值会下降；3. 序列非功能区域的有较低随机性，可能会导致两序列较高同源性
 ##btop: 简述比对情况, 数字表示匹配; GA表示G变成了A; -表示gap; * tblastx表示gap
 mkdir result_blaIMP/ && echo "Done create result dir"
-printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" "Scaffold" "query_id" "qstart" "qend" "sseqid" "sstart" "send" "length" "pident" "mismatch" "gapopen" "bitscore" "evalue" "btop" >>result_blaIMP/blastn_blaIMP
+printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" "Scaffold" "query_id" "qlen" "qstart" "qend" "sseqid" "slen" "sstart" "send" "length" "pident" "mismatch" "gapopen" "bitscore" "evalue" "btop" >>result_blaIMP/blastn_blaIMP
 for query in $(find ../ -type l -name "*.fasta")
 		do
 				name=${query##*/}
 				name=${name%.fasta}
 				echo $name
-				blastn -evalue 1e-2 -db database/blaIMP -query $query -outfmt "6 qseqid qstart qend sseqid sstart send length pident mismatch gapopen bitscore evalue btop" >result_blaIMP/${name}.blastn && echo "Done $name blastn"
+				blastn -evalue 1e-2 -db database/blaIMP -query $query -outfmt "6 qseqid qlen qstart qend sseqid slen sstart send length pident mismatch gapopen bitscore evalue btop" >result_blaIMP/${name}.blastn && echo "Done $name blastn"
 				awk -v n="$name" '!/^#/{printf("%s\t%s\n",n,$0)}' result_blaIMP/${name}.blastn >>result_blaIMP/blastn_blaIMP && echo "Done $name awk print"
 				done
 				

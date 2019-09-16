@@ -8,6 +8,7 @@
 
 ##mapping-based mode
 ##推荐使用selective alignment，因此使用脚本generateDecoyTranscriptome.sh脚本构建decoy-aware trasncriptom 文件
+##--keepDuplicates, 保留序列的转录本
 ##salmon index -t transcripts.fa -i transcripts_index -k 31
 
 ##含两种定量模式，一种是根据基于比对文件(sam/bam)的方式，另一种是根据read定量方式

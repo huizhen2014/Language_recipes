@@ -1,5 +1,6 @@
 ####Trimmomatic
 ##Trimmomatic主要针对illumina测序数据过滤，包括去除接头和剪短测序reads
+##针对PE，去除非配对的read
 
 ##usage
 ##输入文件可以使用'gzip'或'bzip2'文件，通过文件后缀'.gz', '.bz2'识别
@@ -30,6 +31,5 @@
 ##文献中PE 2X100 MINLEN设为60
 ##trimmomatic PE -summary 5_L1_trim.summary 5_L1_R1.fq.gz 5_L1_R2.fq.gz 5_L1_R1.trimed.paired.fq.gz 5_L1_R1.trimed.unpaired.fq.gz 5_L1_R2.trimed.paired.fq.gz 5_L1_R2.trimed.unpaired.fq.gz LEADING:30 TRAILING:30 MINLEN:90 AVGQUAL:20
 
-##过滤RNA-seq 公司PPT
+##过滤RNA-seq Sangon PE150 
 ##java -jar ~/software/Trimmomatic-0.36/trimmomatic-0.36.jar PE -threads 30 rawdata/input_forward.fq.gz rawdata/input_reverse.fq.gz QCoutput/output_forward_paired.fq.gz QCoutput/output_forward_unpaired.fq.gz QCoutput/output_reverse_paired.fq.gz QCoutput/output_reverse_unpaired.fq.gz ILLUMINACLIP:rawdata/adaptor.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:35
-

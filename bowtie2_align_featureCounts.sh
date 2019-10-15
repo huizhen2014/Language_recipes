@@ -1,13 +1,13 @@
 ##bowtie2 align 
 
-#bowtie2-build GCF_000240185.1_ASM24018v2_genomic.fna hs11286_index
+bowtie2-build GCF_000742135.1_ASM74213v1_genomic.fna atcc13883_index
 
-#bowtie2 -x hs11286_index -1 kp_21_pe_trimmed_1P.fastq.gz -2 kp_21_pe_trimmed_2P.fastq.gz -S kp_21_sangon_mapped.sam
+bowtie2 -x atcc13883_index -1 kp_S_pe_trimmed_1P.fastq.gz -2 kp_S_pe_trimmed_2P.fastq.gz -S kp_S_sangon_mapped.sam
 
-#samtools view -bS kp_21_sangon_mapped.sam > kp_21_sangon_mapped.bam
+samtools view -bS  kp_S_sangon_mapped.sam > kp_S_sangon_mapped.bam
 
 ##根据比对名称排序
-#samtools sort -n kp_21_sangon_mapped.bam > kp_21_sangon_mapped_sorted.bam
+samtools sort -n kp_S_sangon_mapped.bam > kp_S_sangon_mapped_sorted.bam
 
 ##-T 线程
 ##-q GTF/GFF 注释文件

@@ -17,7 +17,7 @@ STAR --runMode genomeGenerate --genomeFastaFiles GCF_000240185.1_ASM24018v2_geno
 ##--readFilesCommand zcat/gunzip -c / bunzip2 -c 若read文件为压缩文件，使用该命令解压缩后输入
 ##针对多个read文件，使用逗号分隔输入同一端reads文件
 ##--outFileNamePrefix /path/to/output/dir/prefix,需要提前mkdir
-STAR --runMode alignReads --genomeDir STAR_index --readFilesIn kp_28_pe_trimmed_1P.fastq.gz kp_28_pe_trimmed_2P.fastq.gz --readFilesCommand gunzip -c --quantMode GeneCounts --outSAMtype BAM Unsorted --outFileNamePrefix kp_28_STAR_align_results/kp_28_star
+STAR --runMode alignReads --genomeDir STAR_index --readFilesIn kp_21_pe_trimmed_1P.fastq.gz kp_21_pe_trimmed_2P.fastq.gz --readFilesCommand gunzip -c --quantMode GeneCounts --outSAMtype BAM Unsorted --outFileNamePrefix kp_21_STAR_align_results/kp_21_star
 
 ##3. 输出文件
 ##Log.out 主要log文件，记录详细运行信息

@@ -1,6 +1,13 @@
+##
+read1=43.raw_1.fastq.gz
+read2=43.raw_1.fastq.gz
+out=X43
+
 ##PE150
 ##去除指定接头
-trimmomatic PE KP_S.raw_1.fastq.gz KP_S.raw_2.fastq.gz -baseout KP_S_pe_trimmed.fastq.gz ILLUMINACLIP:../../Sangon_PE.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:35 
+##minAdapterLength:3
+##keepBothReads:true 
+trimmomatic PE $read1 $read2 -baseout ${out}_pe_trimmed.fastq.gz ILLUMINACLIP:Sangon_adapter.txt:2:30:10:3:true LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:35 
 
 ##http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/
 ##--illumina 去除illumina通用adapter序列
@@ -16,18 +23,20 @@ trimmomatic PE KP_S.raw_1.fastq.gz KP_S.raw_2.fastq.gz -baseout KP_S_pe_trimmed.
 ##--keep 保留trimmed掉的中间文件
 ##--paired 双端模式，均得满足条件
 ##--fastqc trim后运行fastqc默认分析
-trim_galore --paired -j 4 -q 20 --illumina --stringency 3 --length 35 --trim-n --keep --fastqc --basename KP_S_pe_galore KP_S_pe_trimmed_1P.fastq.gz KP_S_pe_trimmed_2P.fastq.gz
+trim_galore --paired -j 4 -q 20 --illumina --stringency 3 --length 35 --trim-n --keep --fastqc --basename ${out}_pe_galore ${out}_pe_trimmed_1P.fastq.gz ${out}_pe_trimmed_2P.fastq.gz
 
 ##bowtie2 align 
 
-bowtie2-build GCF_000742135.1_ASM74213v1_genomic.fna atcc13883_index
+#bowtie2-build GCF_000742135.1_ASM74213v1_genomic.fna atcc13883_index
 
-bowtie2 -x atcc13883_index -1 kp_S_pe_trimmed_1P.fastq.gz -2 kp_S_pe_trimmed_2P.fastq.gz -S kp_S_sangon_mapped.sam
+#bowtie2 -x atcc13883_index -1 ${out}_pe_trimmed_1P.fastq.gz -2 ${out}_pe_trimmed_2P.fastq.gz -S ${out}_sangon_mapped.sam
 
-samtools view -bS  kp_S_sangon_mapped.sam > kp_S_sangon_mapped.bam
+#samtools view -bS  ${out}_sangon_mapped.sam > ${out}_sangon_mapped.bam
 
 ##根据比对名称排序
-samtools sort -n kp_S_sangon_mapped.bam > kp_S_sangon_mapped_sorted.bam
+#samtools sort -n ${out}_sangon_mapped.bam > ${out}_sangon_mapped_sorted.bam
+#rm ${out}_sangon_mapped.sam
+#rm ${out}_sangon_mapped.bam
 
 ##使用Rsubread count
 ##-T 线程

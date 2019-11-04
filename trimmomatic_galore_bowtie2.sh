@@ -7,7 +7,7 @@ index=hs11286_index
 adapter=../Sangon_PE.fa
 
 ##trimmomatic 去除指定adapter序列
-trimmomatic PE ${read1} ${read2} -baseout ${out}_trimmed.fastq.gz ILLUMINACLIP:${adapter}:2:30:10:3:keepBothReads LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:35 
+trimmomatic PE ${read1} ${read2} -baseout ${out}_trimmed.fastq.gz ILLUMINACLIP:${adapter}:2:30:10:3:keepBothReads LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:35 -summary ${out}_trimmomatic.summary
 
 ##http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/
 ##--illumina 去除illumina通用adapter序列

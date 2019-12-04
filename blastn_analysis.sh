@@ -31,8 +31,9 @@ for query in $(find ../ -type l -name "*.fasta")
 				
 ##3. Translated Query-Translated Subject tblastx
 ##Add the same prot database to the same nucl database
+#makeblastdb -in kpc_ref/blaKPC-2.fsa -hash_index -dbtype nucl -out databases/blaKPC-2
 #makeblastdb -in kpc_ref/blaKPC-2.fsa -hash_index -dbtype prot -out databases/blaKPC-2
 
 ###tblastx 
 ##-db_gencode
-##tblastx -evalue 1e-2 -db database/blaKPC -db_genecode 11 -query tmp.fasta -outfmt "6 qseqid qstart qend sseqid sstart send length pident mismatch gapopen bitscore evalue btop" >tmp_test.map  && echo "Done $name blastn"
+##tblastx -evalue 1e-2 -db database/blaKPC-2 -db_gencode 11 -query tmp.fasta -outfmt "6 qseqid qstart qend sseqid sstart send length pident mismatch gapopen bitscore evalue btop" >tmp_test.map  && echo "Done $name blastn"

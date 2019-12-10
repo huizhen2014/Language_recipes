@@ -29,11 +29,13 @@ for query in $(find ../ -type l -name "*.fasta")
 				awk -v n="$name" '!/^#/{printf("%s\t%s\n",n,$0)}' result_blaIMP/${name}.blastn >>result_blaIMP/blastn_blaIMP && echo "Done $name awk print"
 				done
 				
-##3. Translated Query-Translated Subject tblastx
+##3. Translated Query-Translated Subject 
+##tblastx nucleotide vs nucleotide by peptides
 ##Add the same prot database to the same nucl database
 #makeblastdb -in kpc_ref/blaKPC-2.fsa -hash_index -dbtype nucl -out databases/blaKPC-2
 #makeblastdb -in kpc_ref/blaKPC-2.fsa -hash_index -dbtype prot -out databases/blaKPC-2
 
 ###tblastx 
-##-db_gencode
-##tblastx -evalue 1e-2 -db database/blaKPC-2 -db_gencode 11 -query tmp.fasta -outfmt "6 qseqid qstart qend sseqid sstart send length pident mismatch gapopen bitscore evalue btop" >tmp_test.map  && echo "Done $name blastn"
+##-query_gencode 11
+##-db_gencode 11
+##tblastx -evalue 1e-2 -db database/blaKPC-2 -query_gencode 11 -db_gencode 11 -query tmp.fasta -outfmt "6 qseqid qlen qstart qend sseqid slen sstart send length pident mismatch gapopen bitscore evalue btop" >tmp_test.map  && echo "Done $name tblastx"

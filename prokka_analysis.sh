@@ -11,6 +11,7 @@
 ##prokka --outdir mydir --prefix mygenome contigs.fa
 ##Visulalize it in Artemis
 #art mydir/mygenome.gff
+##--compliant when the gbk result is used for snippy software as the ref file
 
 ##2. sepcialist
 ##--proteins [X]    FASTA or GBK file to use as 1st priority (default '')

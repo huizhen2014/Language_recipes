@@ -33,3 +33,9 @@
 
 ##过滤RNA-seq Sangon PE150 
 ##java -jar ~/software/Trimmomatic-0.36/trimmomatic-0.36.jar PE -threads 30 rawdata/input_forward.fq.gz rawdata/input_reverse.fq.gz QCoutput/output_forward_paired.fq.gz QCoutput/output_forward_unpaired.fq.gz QCoutput/output_reverse_paired.fq.gz QCoutput/output_reverse_unpaired.fq.gz ILLUMINACLIP:rawdata/adaptor.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:35
+
+##for adapter files
+#Naming of the sequences indicates how they should be used.
+#For 'Palindrome' clipping, the sequence names should both start with 'Prefix', and end in '/1' for the forward adapter and '/2' for the reverse adapter. 
+#All other sequences are checked using 'simple' mode. Sequences with names ending in '/1' or '/2' will be checked only against the forward or reverse read. Sequences not ending in '/1' or '/2' will be checked against both the forward and reverse read.
+#If you want to check for the reverse-complement of a specific sequence, you need to specifically include the reverse-complemented form of the sequence as well, with another name.

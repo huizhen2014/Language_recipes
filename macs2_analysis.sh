@@ -19,71 +19,43 @@
 ##--SPMR, 生成每百万read的的信号文件来描述片段pileup情况, 格式为bedGraph
 ##-g ce 使用C elegans genome作为背景; dm 表fly, hs表人类
 ##-n 用于生成输出文件名称
-macs2 callpeak -t H3K36me1_EE_rep1.bam -c Input_EE_rep1.bam -B --nomodel \
---extsize 147 --SPMR -g ce -n H3K36me1_EE_rep1
+
+#macs2 callpeak -t H3K36me1_EE_rep1.bam -c Input_EE_rep1.bam -B --nomodel \
+#--extsize 147 --SPMR -g ce -n H3K36me1_EE_rep1
 
 ##2. run MACS2 bdgcmp to generate fold-enrichment and logLR track
 ##通过比较两bedGraph 信号文件来去除噪音
 ##-m 指定用于比较treatment和control时bin的值, 可选项有ppois,qpois,subtract,
-##logFE, logLR和slogLR。代表了柏松分布pvalue(-log10(pvalue)form)，
+##logFE, logLR和slogLR。代表了泊松分布pvalue(-log10(pvalue)form)，
 ##使用control作为lambda，treatment作为观察..., 默认为ppois
 ##-m FE 计算倍数富集
-macs2 bdgcmp -t H3K36me1_EE_rep1_treat_pileup.bdg -c H3K36me1_EE_rep1_control_lambda.bdg \
--o H3K36me1_EE_rep1_FE.bdg -m FE
+
+#macs2 bdgcmp -t H3K36me1_EE_rep1_treat_pileup.bdg -c H3K36me1_EE_rep1_control_lambda.bdg \
+#-o H3K36me1_EE_rep1_FE.bdg -m FE
 
 ##-p 设置pseudocount值, 用于计算logLR, logFE或FE。
 ##该值将用于‘pileup per million reads’值，当用于fold enrichment时无需设置，
 ##因为labmda总是大于0,然而在log likelihood时，避免log(0)，这里使用0.0001
-macs2 bdgcmp -t  H3K36me1_EE_rep1_treat_pileup.bdg -c H3K36me1_EE_rep1_control_lambda.bdg \
--o H3K36me1_EE_rep1_logLR.bdg -m logLR -p 0.00001
+
+#macs2 bdgcmp -t  H3K36me1_EE_rep1_treat_pileup.bdg -c H3K36me1_EE_rep1_control_lambda.bdg \
+#-o H3K36me1_EE_rep1_logLR.bdg -m logLR -p 0.00001
 
 ##3. fix the bedGraph and convert them to bigWig files
 ##http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig
 ##http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedClip
 ##http://code.google.com/p/bedtools/
-bdg2bw H3K36me1_EE_rep1_FE.bdg hg19.len $ bdg2bw H3K36me1_EE_rep1_logLR.bdg hg19.len
+
+#bdg2bw H3K36me1_EE_rep1_FE.bdg hg19.len $ bdg2bw H3K36me1_EE_rep1_logLR.bdg hg19.len
 
 ##4. calculate correlation between replicates
 ##http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/wigCorrelate
-wigCorrelate H3K36me1_EE_rep1_FE.bw H3K36me1_EE_rep2_FE.bw
+
+#wigCorrelate H3K36me1_EE_rep1_FE.bw H3K36me1_EE_rep2_FE.bw
 ##如果相关性足够好，那么合并replicates，再次运行masc2
 
 ##5. run macs2 combining replicates
 ##无需samtools merge
-macs2 callpeak -t H3K36me1_EE_rep1.bam H3K36me1_EE_rep2.bam \
--c Input_EE_rep1.bam Input_EE_rep2.bam -B --nomodel --extsize 147 --SPMR -g ce -n H3K36me1_EE
+
+#macs2 callpeak -t H3K36me1_EE_rep1.bam H3K36me1_EE_rep2.bam \
+#-c Input_EE_rep1.bam Input_EE_rep2.bam -B --nomodel --extsize 147 --SPMR -g ce -n H3K36me1_EE
 ##使用类似2和3步骤生成信号轨迹文件(bigWig format)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

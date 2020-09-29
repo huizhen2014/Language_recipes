@@ -23,6 +23,14 @@
 ##TRAILING：去除末端低于阈值质量的base
 ##MINLEN：舍弃修剪后长度低于阈值的reads
 ##AVGQUAL：舍弃平均质量值低于阈值的reads
+##ILLUMINACLIP:<fastaWithAdaptersEtc>:<seed mismathess>:<palindrome clip threshold>:<simple clip threshold>:<minAdapterLength>:<keepBothReads>
+## <fastaWithAdaptersEtc>: adapter或primer序列文件
+## <seed mismatchess>: 匹配过程中允许的最大错配数目
+## <palindromeClipThreshold>: 在两个'adapter ligated' reads之间,此时双向reads读通, 反向互补, 需要满足的准确程度, 针对PE palindrome read alignment, 针对一对reads
+## <simpleClipThreshold>: 两个adapter之间的匹配程度, 序列必需对应单个read
+## <minAdapterLength>: 仅针对PE palindrom模式, 最小的adapter长度, 默认为8 bases. 由于palidrome mode拥有很低的假阳性, 即使设置为1, 允许更短的adapter片段去除, 也无妨
+## <keepBothReads>: 去除一个方向时也去除对应另一个方向read, 默认: true 
+
 
 ##单端举例
 ##java -jar trimmomatic-0.30.jar SE s_1_1_sequence.txt.gz lane1_forward.fq.gz ILLUMINACLIP:TruSeq3-SE:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
@@ -33,6 +41,9 @@
 
 ##过滤RNA-seq Sangon PE150 
 ##java -jar ~/software/Trimmomatic-0.36/trimmomatic-0.36.jar PE -threads 30 rawdata/input_forward.fq.gz rawdata/input_reverse.fq.gz QCoutput/output_forward_paired.fq.gz QCoutput/output_forward_unpaired.fq.gz QCoutput/output_reverse_paired.fq.gz QCoutput/output_reverse_unpaired.fq.gz ILLUMINACLIP:rawdata/adaptor.fa:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:5:20 MINLEN:35
+
+##ILLUMINACLIP:adapter.fa:2:30:10
+##Remove Illumina adapters provided in the TruSeq3-PE.fa file (provided). Initially Trimmomatic will look for seed matches (16 bases) allowing maximally 2 mismatches. These seeds will be extended and clipped if in the case of paired end reads a score of 30 is reached (about 50 bases), or in the case of single ended reads a score of 10, (about 17 bases).
 
 ##for adapter files
 #Naming of the sequences indicates how they should be used.

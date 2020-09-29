@@ -1,5 +1,5 @@
 ##
-##ETEC_H10407
+##E.coli k12
 #ref=/Data_analysis/Ref_database/NCBI/ETEC_H10407/GCF_000210475.1_ASM21047v1_genomic.fna.gz
 #index=etec_h10407
 
@@ -47,8 +47,7 @@
 #	done
 
 ##macs2
-#macs2 callpeak --pvalue 0.05 --SPMR --trackline --bdg --keep-dup 1 --mfold 2 50 --gsize 5.3e6 --format BAM --name "RNAP_beta" --outdir "RNAP_beta_output" -t ERR654293.RNAP_beta_filtered_sorted.bam ERR654291.RNAP_beta_filtered_sorted.bam -c ERR654295.untagged_filtered_sorted.bam ERR654288.untagged_filtered_sorted.bam
+macs2 callpeak  --SPMR --trackline --bdg --keep-dup 1 --mfold 1 50 --gsize 4.6e6 --format BAM --name "k12_fnr_36" --outdir "k12_fnr_output" -t SRR576933_filtered_sorted.bam -c SRR576938_filtered_sorted.bam
+macs2 callpeak --SPMR --trackline --bdg --keep-dup 1 --mfold 1 50 --gsize 4.6e6 --format BAM --name "k12_fnr_35" --outdir "k12_fnr_output" -t SRR576934.2_filtered_sorted.bam -c SRR576937.2_filtered_sorted.bam 
 
-macs2 callpeak --SPMR --trackline --bdg --keep-dup 1 --mfold 2 50 --gsize 5.3e6 --format BAM --name "CRP" --outdir "CRP_output" -t ERR654289.CRP_filtered_sorted.bam ERR654290.CRP_filtered_sorted.bam -c ERR654295.untagged_filtered_sorted.bam ERR654288.untagged_filtered_sorted.bam
-
-#macs2 callpeak --SPMR --trackline --bdg --keep-dup 1 --mfold 2 50 --gsize 5.3e6 --format BAM --name "H_NS" --outdir "H_NS_output" -t ERR654287.H-NS_filtered_sorted.bam ERR654286.H-NS_filtered_sorted.bam -c ERR654295.untagged_filtered_sorted.bam ERR654288.untagged_filtered_sorted.bam
+#macs2 callpeak --SPMR --trackline --bdg --keep-dup all --mfold 5 50 --gsize 5.3e6 --format BAM --name "k12_fnr_two" --outdir "k12_fnr_two" -t SRR576933_filtered_sorted.bam SRR576934.2_filtered_sorted.bam -c SRR576938_filtered_sorted.bam SRR576937.2_filtered_sorted.bam
